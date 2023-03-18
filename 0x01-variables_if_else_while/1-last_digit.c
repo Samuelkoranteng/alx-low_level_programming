@@ -4,7 +4,7 @@
 
 /**
  *main - Entry point the last digit
- *Return: 0 
+ *Return: 0
  */
 
 int main(void)
