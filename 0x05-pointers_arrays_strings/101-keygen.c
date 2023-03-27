@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 /**
- * main - program that generates random valid passwords for the program 101-crackme
+ * main - program that generates random valid passwords
+ * for the program 101-crackme
  *
  * Return: Always 0.
  */
@@ -12,7 +13,7 @@ int main(void)
 
 	time_t tiempo;
 
-	srand((unsigned) time(&tiempo));
+	srand((unsigned int) time(&tiempo));
 
 	while ((correct_number - var) > 127)
 	{
