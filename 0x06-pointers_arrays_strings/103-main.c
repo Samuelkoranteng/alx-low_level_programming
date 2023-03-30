@@ -1,4 +1,3 @@
-julien@ubuntu:~/0x06$ cat 103-main.c
 #include "main.h"
 #include <stdio.h>
 
@@ -56,5 +55,5 @@ int main(void)
         {
                 printf("%s + %s = %s\n", n, m, res);
         }
-        return (0);
+	return (0);
 }
