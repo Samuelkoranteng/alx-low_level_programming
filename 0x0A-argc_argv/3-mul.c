@@ -10,16 +10,17 @@
 int main(int argc, char **argv)
 {
 	int k, p;
+	int result;
 
-	if (argc < 3)
+	if (argc != 3)
 	{
-		printf("error\n");
+		printf("Error\n");
 		return (1);
 	}
-
 	k = atoi(argv[1]);
 	p = atoi(argv[2]);
-	printf("%d\n", k * p);
+	result = k * p;
 
+	printf("%d\n", result);
 	return (0);
 }
