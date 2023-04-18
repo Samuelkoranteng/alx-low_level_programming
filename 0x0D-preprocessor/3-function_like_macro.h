@@ -1,6 +1,17 @@
-#ifndef ABS_H
-#define ABS_H
+#include <stdio.h>
+#include "4-sum.h"
+#include "4-sum.h"
 
-#define ABS(x) ((x) < 0 ? (-(x)) : (x))
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    int s;
 
-#endif
+    s = SUM(98, 1024);
+    printf("%d\n", s);
+    return (0);
+}
