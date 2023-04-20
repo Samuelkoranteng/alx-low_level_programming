@@ -1,13 +1,13 @@
 #include "3-calc.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
- * get_op_func - select the correct operation function asked by user
- * @s: operator argument
- * Return: function pointer corresponding to operator given
+ * get_op_func - Select the correct function based on the input
+ * @s: the sign passed by argument
+ *
+ * Return: Pointer to the crossponding sign function
  */
-int (*get_op_func(char *s))(int, int)
+int(*get_op_func(char *s))(int, int)
 {
 	op_t ops[] = {
 		{"+", op_add},
@@ -15,16 +15,15 @@ int (*get_op_func(char *s))(int, int)
 		{"*", op_mul},
 		{"/", op_div},
 		{"%", op_mod},
-		{NULL, NULL}
+		{NULL, NULL},
 	};
-	int i;
 
-	i = 0;
-	while (i < 5)
+	int x;
+
+	x = 0;
+	while (ops[x].op != NULL && *(ops[x].op) != *s)
 	{
-		if (ops[i].op[0] == s[0])
-			return (ops[i].f);
-		i++;
+		x++;
 	}
-	return (NULL);
+	return (ops[x].f);
 }
