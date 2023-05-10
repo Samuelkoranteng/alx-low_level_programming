@@ -1,22 +1,44 @@
 #include "main.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
 /**
- * close_errchk - a program that copies the content of a file
- * to another file.
- * @fd: file descriptor to close
- *
- * Return: 0 on success, -1 on failure
- */
-int close_errchk(int fd)
+  * main - entry point
+  * @ac: argument count
+  * @av: array of argument tokens
+  * @buf: pointer to a buffer
+  * Return: 0 on success
+  */
+int main(int ac, char *av[])
 {
-	int err;
+	int fd_from, fd_to, rd_stat, wr_stat;
+	mode_t perm = S_IRUSR | S_IWUSR | S_IWGRP | S_IRGRP | S_IROTH;
+	char buf[BUFSIZ];
 
-	err = close(fd);
-	if (err == -1)
+	if (ac != 3)
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
+	fd_from = open(av[1], O_RDONLY);
+	if (fd_from == -1)
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]), exit(98);
+	fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, perm);
+	if (fd_to == -1)
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]), exit(99);
+	rd_stat = 1;
+	while (rd_stat)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		return (100);
+		rd_stat = read(fd_from, buf, BUFSIZ);
+		if (rd_stat == -1)
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]), exit(98);
+		if (rd_stat > 0)
+		{
+			wr_stat = write(fd_to, buf, rd_stat);
+			if (wr_stat != rd_stat || wr_stat == -1)
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]), exit(99);
+		}
 	}
+	if (close(fd_from) == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from), exit(100);
+	if (close(fd_to) == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to), exit(100);
 	return (0);
 }
